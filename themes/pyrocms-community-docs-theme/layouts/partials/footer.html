@@ -19,7 +19,7 @@
             PAGES_INDEX = JSON.parse(event.target.response);
             LUNR_INDEX = lunr(function() {
                 this.field("title", {
-                    boost: 10
+                    boost: 20
                 });
                 this.field("content");
                 this.ref("href");
