@@ -88,7 +88,7 @@ Option handlers can also a handler with a closure:
     }
 ```
 
-<div class="alert alert-info">**Remember:** Closures can not be stored in the database so your closure type handlers must be set / overridden from the form builder.</div>
+<div class="alert alert-info"><strong>Remember:</strong> Closures can not be stored in the database so your closure type handlers must be set / overridden from the form builder.</div>
 
 #### Writing Option Handlers
 
@@ -100,7 +100,7 @@ Writing custom option handlers is easy. To begin create a class with the method 
 
 The callable string is called via Laravel's service container. The `AddonFieldType $fieldType` is passed as an argument.
 
-<div class="alert alert-primary">**Pro Tip:** Handlers are called through Laravel's service container so method and class injection is supported.</div>
+<div class="alert alert-primary"><strong>Pro Tip:</strong> Handlers are called through Laravel's service container so method and class injection is supported.</div>
 
 ```php
 <?php namespace App/Example;
