@@ -1,0 +1,175 @@
+    </div>
+    <footer>
+        <p>Supported by the PyroCMS Community. | <a href="">Contribute on Github</a></p>
+    </footer>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js" integrity="sha512-YBk7HhgDZvBxmtOfUdvX0z8IH2d10Hp3aEygaMNhtF8fSOvBZ16D/1bXZTJV6ndk/L/DlXxYStP8jrF77v2MIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-zc7WDnCM3aom2EziyDIRAtQg1mVXLdILE09Bo+aE1xk0AM2c2cVLfSW9NrxE5tKTX44WBY0Z2HClZ05ur9vB6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+    var LUNR_INDEX,
+        RESULTS,
+        PAGES_INDEX;
+
+    window.addEventListener("load", function() {
+        var request = new XMLHttpRequest();
+        request.addEventListener("load", function(event) {
+            PAGES_INDEX = JSON.parse(event.target.response);
+            LUNR_INDEX = lunr(function() {
+                this.field("title", {
+                    boost: 10
+                });
+                this.field("content");
+                this.ref("href");
+                this.metadataWhitelist = ['position'];
+
+                PAGES_INDEX.forEach(function (page) {
+                  this.add(page)
+                }, this);
+            });
+        });
+        request.open("GET", "/js/lunr/PagesIndex.json");
+        request.send();
+    });
+
+    document.querySelector(".search-container input").addEventListener("input", debounce(function(event) {
+        if (event.target.value.length >= 3) {
+            console.log("LUNR: Searching for", event.target.value);
+            RESULTS = LUNR_INDEX.search(event.target.value);
+
+            if (!RESULTS.length) {
+                console.log("No results found.");
+                document.querySelector(".search-results").classList.remove("empty");
+                document.querySelector(".search-results").innerHTML = "<li>No results, sorry!</li>";
+                return;
+            }
+
+            var res = "",
+                items = [],
+                page;
+            // Only show the ten first results
+            console.log("RESULTS:", RESULTS);
+            console.log("PAGES_INDEX:", PAGES_INDEX);
+            console.log("LUNR_INDEX:", LUNR_INDEX);
+            RESULTS = Array.from(new Set(RESULTS));
+            // RESULTS = new Array(RESULTS);
+            // console.log(RESULTS.entries());
+            RESULTS.forEach(function(result) {
+                console.log(result);
+                page = PAGES_INDEX.filter(function(page) {
+                    if (page.href == result.ref) {
+                        return page;
+                    }
+                })[0];
+
+
+                // RESULTS.forEach(function(result) {
+                    // console.log(result);
+                for (const [key, value] of Object.entries(result.matchData.metadata)) {
+                    for (const [field, field_value] of Object.entries(value)) {
+                        field_value.position.forEach(function(position) {
+                            if (items.indexOf(page) == -1) {
+                                items.push(page);
+                            }
+                        });
+                    };
+                };
+                // });
+            });
+
+            console.log("ITEMS: ", items);
+
+            var i = 1;
+            items.slice(0, 10).forEach(function(page) {
+                res += "<a tabindex='" + i + "' href='/" + page.href + "'><strong>";
+                res += "<li>";
+                res += page.title;
+                res += "</strong><br><small><span class='hash'>#</span> ";
+                res += page.content;
+                res += "</small></li>";
+                res += "</a>";
+                
+                i += 1;
+            });
+
+            document.querySelector(".search-results").classList.remove("empty");
+            document.querySelector(".search-results").innerHTML = res;
+        }
+
+        else if (event.target.value.length == 0) {
+            document.querySelector(".search-results").classList.add("empty");
+            document.querySelector(".search-results").innerHTML = "";
+        }
+    }, 200));
+
+    /**
+     * Focus on the search box on "/" keypress.
+     **/
+    document.addEventListener("keyup", function(event) {
+        if (event.key == "/") {
+            var input = document.querySelector(".search-container input");
+            if (input.value.length == 0) {
+                input.focus();
+            } else {
+                input.select();
+            }
+
+            window.scrollTo(0,0);
+        }
+    });
+
+    document.querySelector(".search").addEventListener("keyup", function(event) {
+        if (event.keyCode == 40) {
+            var first = document.querySelector(".search-results").childNodes[0];
+            first.focus();
+        }
+    });
+
+    document.querySelector(".search-results").addEventListener("keyup", function(event) {
+        if (event.keyCode == 40) {
+            // Down
+            if (event.target.nextSibling) {
+                event.target.nextSibling.focus();
+            }
+        }
+
+        else if (event.keyCode == 38) {
+            // Up
+            if (event.target.previousSibling) {
+                event.target.previousSibling.focus();
+            } else {
+                var input = document.querySelector(".search-container input");
+                if (input.value.length == 0) {
+                    input.focus();
+                } else {
+                    input.select();
+                }
+            }
+        }
+    });
+
+    document.querySelector(".hamburger").addEventListener("click", function() {
+        event.currentTarget.classList.toggle("open");
+        document.querySelector(".Sidebar > ol").classList.toggle("open");
+    }, false);
+
+    /**
+     * Function sourced from a gist
+     * https://gist.github.com/ionurboz/51b505ee3281cd713747b4a84d69f434
+     **/
+    function debounce(fn, delay) {
+      var timer = null;
+      return function () {
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fn.apply(context, args);
+        }, delay);
+      };
+    }
+  </script>
+</body>
+
+</html>

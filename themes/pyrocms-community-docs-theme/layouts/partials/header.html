@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{{ block "title" . }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ block "meta_tags" . }}{{end}}
+  <link rel="icon" href="{{ "/images/favicon.png" | absURL}}">
+
+  {{ $normalize := resources.Get "css/normalize.css" }}
+  <link rel="stylesheet" href="{{ ($normalize).RelPermalink }}">
+  {{ if .Site.IsServer }}
+  {{ $style := resources.Get "css/style.css" }}
+  <link rel="stylesheet" href="{{ ($style).RelPermalink }}">
+  {{ else }}
+  {{ $style := resources.Get "css/style.css" }}
+  <link rel="stylesheet" href="{{ ($style | minify | fingerprint).RelPermalink }}">
+  {{ end }}
+
+  {{ block "header_css" . }}{{ end }}
+
+</head>
+
+{{ $pageSlug := .RelPermalink }}
+
+
+
+<body>
+  <div class="container">
+    <nav class="Sidebar">
+      <div class="header-container">
+        <h1><a href="/">{{ .Site.Title }}</a></h1>
+        <div class="menu-button-wrapper">
+          <div class="hamburger mobile">
+              <div>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <p>Menu</p>
+          </div>
+        </div>
+      </div>
+      <ol>
+        <li{{ if eq .Slug $pageSlug }} class="current"{{ end }}><a href="/">Installation</a></li>
+        {{ range .Site.Home.Pages }}
+
+        {{ $hasCurrent := 0 }}
+        {{ if .IsSection }}
+          {{ range .Pages }}
+            {{ if eq .RelPermalink $pageSlug }}
+              {{ $hasCurrent = 1 }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        <li class="{{ if eq .RelPermalink $pageSlug }} current has-current{{ end }}{{ if eq $hasCurrent 1 }} has-current{{ end }}{{ if .IsSection }} has-children{{ end }}">
+          <a href="{{ .Permalink }}">{{ .Title }}</a>
+          {{ if .IsSection }}
+          <ul>
+            {{ range .Pages }}
+            <li{{ if eq .RelPermalink $pageSlug }} class="current"{{ end }}><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+            {{ end }}
+          </ul>
+          {{ end }}
+        </li>
+      {{ end }}
+      </ol>
+    </nav>
+    <div class="Docs">
+      <div class="search-container">
+          <svg class="absolute inset-y-0 left-0 mt-1 w-5 h-5 text-gray-900 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input class="search" placeholder="Search Docs (Press '/')" aria-label="Search in the documentation">
+      </div>
+      <ul class="search-results empty"></ul>
+      {{ $page := . }}
+      {{ with .File }}
+          {{ if isset $page.Params "file" }}
+              <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/finnito/pyrocms-community-docs/edit/master/data/{{ $page.Dir }}homework.toml">✍️ Edit Page</a>
+          {{ else }}
+              {{ if eq .File.LogicalName "_index.md" }}
+                  <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/finnito/pyrocms-community-docs/edit/master/content/{{ .Path }}">✍️ Edit Page</a>
+              {{ else }}
+                  <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/finnito/pyrocms-community-docs/edit/master/content/{{ .Dir }}{{ .LogicalName }}">✍️ Edit Page</a>
+              {{ end }}
+          {{ end }}
+      {{ end }}
