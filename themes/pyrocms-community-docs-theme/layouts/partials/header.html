@@ -78,12 +78,12 @@
       {{ $page := . }}
       {{ with .File }}
           {{ if isset $page.Params "file" }}
-              <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/finnito/pyrocms-community-docs/edit/master/data/{{ $page.Dir }}homework.toml">✍️ Edit Page</a>
+              <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/{{ $.Site.Params.gitPath }}/edit/master/data/{{ $page.Dir }}homework.toml">✍️ Edit Page</a>
           {{ else }}
               {{ if eq .File.LogicalName "_index.md" }}
-                  <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/finnito/pyrocms-community-docs/edit/master/content/{{ .Path }}">✍️ Edit Page</a>
+                  <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/{{ $.Site.Params.gitPath }}/edit/master/content/{{ .Path }}">✍️ Edit Page</a>
               {{ else }}
-                  <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/finnito/pyrocms-community-docs/edit/master/content/{{ .Dir }}{{ .LogicalName }}">✍️ Edit Page</a>
+                  <a class="edit-button" title="Edit {{$.Title}} on Github" target="_blank" href="https://github.com/{{ $.Site.Params.gitPath }}/edit/master/content/{{ .Dir }}{{ .LogicalName }}">✍️ Edit Page</a>
               {{ end }}
           {{ end }}
       {{ end }}
