@@ -4,7 +4,7 @@ This is a community run project to help expand the documentation for the [PyroCM
 
 ## Todo:
 
-- [ ] [Addon Field Type](https://pyrocms.com/documentation/addon-field-type)
+- [x] [Addon Field Type](https://pyrocms.com/documentation/addon-field-type)
 - [ ] [Boolean Field Type](https://pyrocms.com/documentation/boolean-field-type)
 - [ ] [Checkboxes Field Type](https://pyrocms.com/documentation/checkboxes-field-type)
 - [ ] [Colorpicker Field Type](https://pyrocms.com/documentation/colorpicker-field-type/2.2)
