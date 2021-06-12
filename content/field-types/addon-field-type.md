@@ -8,6 +8,12 @@ title: Addon Field Type
 
 The addon field type provides a configurable select dropdown of addons. The field type acts very similar to a relationship between an addon and an entry.
 
+### Installation
+
+```bash
+composer require anomaly/addon-field_type
+```
+
 ### Configuration
 
 Below is a list of available configuration with default values.
@@ -24,8 +30,6 @@ Below is a list of available configuration with default values.
     ]
 ]
 ```
-
-###### Configuration
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -44,7 +48,7 @@ Below is a list of available configuration with default values.
         <tr>
             <td>type</td>
             <td>module</td>
-            <td>If defined only addons of the specified type will be displayed. Valid options are `module`, `field_type`, `plugin`, `module`, and `extension`.</td>
+            <td>If defined only addons of the specified type will be displayed. Valid options are <code>module</code>, <code>field_type</code>, <code>plugin</code>, <code>module</code>, and <code>extension</code>.</td>
         </tr>
         <tr>
             <td>search</td>
@@ -54,17 +58,17 @@ Below is a list of available configuration with default values.
         <tr>
             <td>theme_type</td>
             <td>admin</td>
-            <td>Restrict what type of themes are returned. Valid options are `admin` or `standard`.</td>
+            <td>Restrict what type of themes are returned. Valid options are <code>admin</code> or <code>standard</code>.</td>
         </tr>
         <tr>
             <td>handler</td>
-            <td>[code>Example/Test/MyOptions@handle](mailto:code>Example/Test/MyOptions@handle</code)</td>
+            <td><code>Example/Test/MyOptions@handle</code></td>
             <td>Handlers let you override control of the options logic.</td>
         </tr>
     </tbody>
 </table>
 
-#### Option Handlers
+### Option Handlers
 
 Option handlers are responsible for setting the available options on the field type. You can define your own option handler to add your own logic to available dropdown options.
 
@@ -86,7 +90,7 @@ Option handlers can also a handler with a closure:
 
 <div class="alert alert-info">**Remember:** Closures can not be stored in the database so your closure type handlers must be set / overridden from the form builder.</div>
 
-##### Writing Option Handlers
+#### Writing Option Handlers
 
 Writing custom option handlers is easy. To begin create a class with the method you defined in the config option.
 
@@ -113,4 +117,44 @@ class MyOptions
     }
 }
 ```
+
+## Usage
+
+This section will show you how to use the field type via API and in the view layer.
+
+### Setting Values
+
+You can set the addon field type value with an addon's namespace:
+
 ```php
+$entry->example = "anomaly.module.files"
+```
+
+You can also set the value with an instance of an addon:
+
+```php
+$entry->example = $module;
+```
+
+Lastly you can set the value with an instance of an addon presenter:
+
+```php
+$entry->example = $decorated;
+```
+
+### Basic Output
+
+The `value` returned by the field type is either `null` or an instance of the selected addon.
+
+```php
+$entry->example->getNamespace(); // anomaly.module.files
+```
+
+### Presenter Output
+
+The addon field type will always return `null` or an instance of the addon. When accessing the field value from a decorated entry model the returned addon instance will be automatically decorated.
+
+```php
+$decorated->example->name; // PHP
+{{ decorated.example.name }} // Twig
+```
