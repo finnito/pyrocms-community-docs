@@ -1,0 +1,5 @@
+baseURL       = "/"
+languageCode  = "en-us"
+title         = "PyroCMS 3 Community Docs"
+themesDir     = "themes"
+theme         = "pyrocms-community-docs-theme"
