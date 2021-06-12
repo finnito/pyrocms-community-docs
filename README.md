@@ -1,3 +1,35 @@
 # PyroCMS Community Docs
 
 This is a community run project to help expand the documentation for the [PyroCMS 3](https://pyrocms.com/) project.
+
+## Todo:
+
+- [ ] [Addon Field Type](https://pyrocms.com/documentation/addon-field-type)
+- [ ] [Boolean Field Type](https://pyrocms.com/documentation/boolean-field-type)
+- [ ] [Checkboxes Field Type](https://pyrocms.com/documentation/checkboxes-field-type)
+- [ ] [Colorpicker Field Type](https://pyrocms.com/documentation/colorpicker-field-type/2.2)
+- [ ] [Country Field Type](https://pyrocms.com/documentation/country-field-type/2.3)
+- [ ] [Datetime Field Type](https://pyrocms.com/documentation/datetime-field-type/3.0)
+- [ ] [Decimal Field Type](https://pyrocms.com/documentation/decimal-field-type/2.1)
+- [ ] [Editor Field Type](https://pyrocms.com/documentation/editor-field-type/2.3)
+- [ ] [Email Field Type](https://pyrocms.com/documentation/email-field-type/2.1)
+- [ ] [Encrypted Field Type](https://pyrocms.com/documentation/encrypted-field-type/2.1)
+- [ ] [File Field Type](https://pyrocms.com/documentation/file-field-type/2.2)
+- [ ] [Files Field Type](https://pyrocms.com/documentation/files-field-type/2.2)
+- [ ] [Geocoder Field Type](https://pyrocms.com/documentation/geocoder-field-type/1.1)
+- [ ] [Grid Field Type](https://pyrocms.com/documentation/grid-field-type/1.3)
+- [ ] [Icon Field Type](https://pyrocms.com/documentation/icon-field-type/1.1)
+- [ ] [Image Field Type](https://pyrocms.com/documentation/image-field-type/1.3)
+- [ ] [Integer Field Type](https://pyrocms.com/documentation/integer-field-type/2.1)
+- [ ] [Markdown Field Type](https://pyrocms.com/documentation/markdown-field-type/2.2)
+- [ ] [Multiple Field Type](https://pyrocms.com/documentation/multiple-field-type/2.2)
+- [ ] [Polymorphic Field Type](https://pyrocms.com/documentation/polymorphic-field-type/2.1)
+- [ ] [Repeater Field Type](https://pyrocms.com/documentation/repeater-field-type/1.3)
+- [ ] [Select Field Type](https://pyrocms.com/documentation/select-field-type/2.3)
+- [ ] [Slider Field Type](https://pyrocms.com/documentation/slider-field-type/3.0)
+- [ ] [State Field Type](https://pyrocms.com/documentation/state-field-type/2.3)
+- [ ] [Tags Field Type](https://pyrocms.com/documentation/tags-field-type/2.4)
+- [ ] [Textarea Field Type](https://pyrocms.com/documentation/textarea-field-type/2.1)
+- [ ] [Upload Field Type](https://pyrocms.com/documentation/upload-field-type/1.2)
+- [ ] [URL Field Type](https://pyrocms.com/documentation/url-field-type/2.2)
+- [ ] [WYSIWYG Field Type](https://pyrocms.com/documentation/wysiwyg-field-type/2.2)
