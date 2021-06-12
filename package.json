@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "grunt": "^1.4.1",
+    "string": "^3.3.3"
+  },
+  "dependencies": {
+    "front-matter": "^4.0.2",
+    "markdown-headings": "^3.0.0"
+  }
+}
