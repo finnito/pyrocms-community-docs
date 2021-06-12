@@ -1,0 +1,5 @@
+---
+title: Streams Addon
+---
+
+## Installation
