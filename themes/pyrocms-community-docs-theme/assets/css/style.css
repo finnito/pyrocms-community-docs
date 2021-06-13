@@ -48,7 +48,9 @@ footer { grid-area: Footer; padding: 0.5rem 1rem 1rem 1rem; border-top: 1px soli
 pre {
   max-width: 100%;
   display: block;
-  white-space: pre-wrap;
+  white-space: pre;
+  overflow-x: auto;
+  padding: 1rem;
 }
 
 h1 a {color: var(--purple); text-decoration: none;}
@@ -60,12 +62,12 @@ p > a:active, p > a:focus, p > a:hover {
 }
 
 :not(pre) > code {
-  background-color: #2d2d2d;
+  background-color: var(--grey-light);
   padding: 0.1rem 0.25rem;
   margin: 0.1rem 0;
   display: inline-block;
   border-radius: 0.25rem;
-  color: var(--grey-light);
+  color: var(--purple);
 }
 
 .permalink {
