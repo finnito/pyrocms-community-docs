@@ -371,17 +371,21 @@ table td {
     background-color: white;
 }
 
+table tr td:last-child {
+  whitespace: normal;
+}
+
 tbody tr:not(first-child) {
   border-top: 1px solid black;
 }
 
 table tr:nth-child(2n-1) td {
-    background-color: var(--grey-light);
+    /*background-color: var(--grey-light);*/
 }
 
 tbody tr td:first-of-type {
   font-weight: 500;
-  background-color: var(--purple-lighter);
+  background-color: var(--grey-light);
 }
 
 .alert {
