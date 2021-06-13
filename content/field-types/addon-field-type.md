@@ -75,17 +75,17 @@ Option handlers are responsible for setting the available options on the field t
 You can define custom handlers as a callable string where `@handle` will be assumed if no method is provided:
 
 ```php
-"handler" => /Example/Test/CustomOptions::class // Assumes @handle
+// Assumes @handle
+"handler" => /Example/Test/CustomOptions::class 
 
-Option handlers can also a handler with a closure:
-
-    "handler" => function (AddonFieldType $fieldType, ExampleModule $module) {
-        $fieldType->setOptions(
-            [
-                "anomaly.module.example" => $module->getName()
-            ]
-        );
-    }
+// Option handlers can also a handler with a closure:
+"handler" => function (AddonFieldType $fieldType, ExampleModule $module) {
+    $fieldType->setOptions(
+        [
+            "anomaly.module.example" => $module->getName()
+        ]
+    );
+}
 ```
 
 <div class="alert alert-info"><strong>Remember:</strong> Closures can not be stored in the database so your closure type handlers must be set / overridden from the form builder.</div>
