@@ -7,6 +7,8 @@ theme         = "pyrocms-community-docs-theme"
 [Params]
     gitPath   = "finnito/pyrocms-community-docs"
 
+[markup.tableOfContents]
+    endLevel = 4
 [markup.highlight]
     style = "manni"
 [markup.goldmark.renderer]
