@@ -1,1 +1,4 @@
-<h{{ .Level }} id="{{ .Anchor | safeURL }}"><a class="permalink" href="#{{ .Anchor | safeURL }}">¶</a> {{ .Text | safeHTML }}</h{{ .Level }}>
+<h{{ .Level }} id="{{ .Anchor | safeURL }}">
+    {{ if le .Level 4 }}<a class="permalink" href="#{{ .Anchor | safeURL }}">¶</a>{{ end }}
+    {{ .Text | safeHTML }}
+</h{{ .Level }}>
