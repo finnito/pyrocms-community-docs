@@ -176,7 +176,7 @@ pyrocms new website.dev --tag=3.2.0 --dev
 
 You may install PyroCMS by issuing the Composer `create-project` command in your terminal:
 
-```
+```bash
 composer create-project pyrocms/pyrocms
 ```
 
